@@ -11,7 +11,7 @@ final class ModelRegistry {
         refresh()
     }
 
-    func refresh() {
+    func refresh(userModels: [UserModelRecord] = []) {
         var next: [ModelDescriptor] = []
         next.append(systemDescriptor())
 
@@ -20,6 +20,7 @@ final class ModelRegistry {
         }
 
         next.append(mlxGemmaDescriptor())
+        next.append(contentsOf: userModels.map(userDescriptor))
         descriptors = next
     }
 
@@ -82,6 +83,32 @@ final class ModelRegistry {
             availability: .requiresSetup,
             statusLine: "MLXFoundationModels package validation required",
             isBuiltIn: true
+        )
+    }
+
+    private func userDescriptor(for record: UserModelRecord) -> ModelDescriptor {
+        let lane = ModelLane(rawValue: record.laneRawValue) ?? .localMLX
+        let statusLine: String
+        switch lane {
+        case .localMLX:
+            statusLine = "Waiting for MLXFoundationModels package validation"
+        case .server:
+            statusLine = "Waiting for AFM provider configuration"
+        case .coreAI:
+            statusLine = "Waiting for Core AI model support"
+        case .appleSystem, .privateCloud:
+            statusLine = "Custom descriptor"
+        }
+
+        return ModelDescriptor(
+            id: record.descriptorID,
+            displayName: record.displayName,
+            lane: lane,
+            modelID: record.modelID,
+            capabilities: .textOnly,
+            availability: .requiresSetup,
+            statusLine: statusLine,
+            isBuiltIn: false
         )
     }
 }

@@ -40,6 +40,10 @@ final class ChatStore {
             return
         }
 
+        if conversation.messages.isEmpty {
+            conversation.title = title(for: trimmed)
+        }
+
         let userMessage = MessageRecord(role: .user, content: trimmed, conversation: conversation)
         let assistantMessage = MessageRecord(role: .assistant, content: "", conversation: conversation)
         conversation.messages.append(userMessage)
@@ -68,5 +72,13 @@ final class ChatStore {
         }
 
         isGenerating = false
+    }
+
+    private func title(for prompt: String) -> String {
+        let title = String(prompt.prefix(56)).trimmingCharacters(in: .whitespacesAndNewlines)
+        if prompt.count > title.count {
+            return "\(title)..."
+        }
+        return title.isEmpty ? "New Chat" : title
     }
 }
