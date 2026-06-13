@@ -78,10 +78,10 @@ final class ModelRegistry {
             id: BuiltInModelID.gemma4E2B,
             displayName: "Gemma 4 E2B Instruct",
             lane: .localMLX,
-            modelID: "mlx-community/gemma-4-e2b-it-4bit",
+            modelID: MLXFoundationModelSupport.gemma4E2BModelID,
             capabilities: .textOnly,
-            availability: .requiresSetup,
-            statusLine: "MLXFoundationModels package validation required",
+            availability: MLXFoundationModelSupport.isCompiledIn ? .experimental : .requiresSetup,
+            statusLine: MLXFoundationModelSupport.statusLine,
             isBuiltIn: true
         )
     }
@@ -91,7 +91,7 @@ final class ModelRegistry {
         let statusLine: String
         switch lane {
         case .localMLX:
-            statusLine = "Waiting for MLXFoundationModels package validation"
+            statusLine = MLXFoundationModelSupport.statusLine
         case .server:
             statusLine = "Waiting for AFM provider configuration"
         case .coreAI:
