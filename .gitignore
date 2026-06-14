@@ -1,2 +1,16 @@
 CoreAIModelExports/
 .DS_Store
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+
+# Local configuration and credentials
+.env
+.env.*
+*.p8
+*.p12
+*.pem
+*.key
+*.mobileprovision
+*.provisionprofile
