@@ -13,7 +13,7 @@ enum ModelLane: String, Codable, CaseIterable, Identifiable, Sendable {
         case .appleSystem:
             "Apple"
         case .privateCloud:
-            "Private Cloud"
+            "Apple Cloud"
         case .coreAI:
             "Core AI"
         case .server:
