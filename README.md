@@ -1,5 +1,13 @@
 # AFM Studio
 
+[![GitHub stars](https://img.shields.io/github/stars/Techopolis/AFM-Studio?style=social)](https://github.com/Techopolis/AFM-Studio/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Techopolis/AFM-Studio?style=social)](https://github.com/Techopolis/AFM-Studio/forks)
+[![GitHub issues](https://img.shields.io/github/issues/Techopolis/AFM-Studio)](https://github.com/Techopolis/AFM-Studio/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/Techopolis/AFM-Studio)](https://github.com/Techopolis/AFM-Studio/pulls)
+[![Last commit](https://img.shields.io/github/last-commit/Techopolis/AFM-Studio)](https://github.com/Techopolis/AFM-Studio/commits/main)
+![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20iOS-lightgrey)
+![Xcode](https://img.shields.io/badge/Xcode-27%20beta-blue)
+
 AFM Studio is an open-source Mac and iOS app for trying, comparing, and benchmarking language models through Apple's Foundation Models framework.
 
 The project is built for the OS 27 / Xcode 27 beta cycle. It focuses on the Apple Foundation Models path first: system models, Private Cloud Compute, and Core AI model bundles loaded through the Foundation Models provider support. MLX support is intentionally not wired into the app right now; it can return when Apple ships a Foundation Models-ready MLX language model package.
