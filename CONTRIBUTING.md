@@ -88,16 +88,17 @@ AFM Studio's core invariant is that generation should flow through Apple's Found
 
 ## Foundation Models Entitlement
 
-Private Cloud Compute and custom Foundation Models adapter work must include clear entitlement notes. Xcode 27 beta currently exposes the requestable Apple Developer capability as `Foundation Model Adapter`, backed by the boolean entitlement `com.apple.developer.foundation-model-adapter`.
+Private Cloud Compute and custom Foundation Models provider work are separate entitlement paths. Do not send PCC users to adapter/provider entitlement requests.
 
 When changing this area:
 
-- Request approval through Apple's entitlement form before expecting the model to run: [Foundation Models framework adapter entitlement request](https://developer.apple.com/contact/request/foundation-models-framework-adapter-entitlement).
-- Add the capability through Xcode's `Signing & Capabilities` UI instead of hand-typing entitlement keys.
+- Follow Apple's [Private Cloud Compute](https://developer.apple.com/private-cloud-compute/) access page and the README instructions before expecting `PrivateCloudComputeLanguageModel` to run.
+- Use the PCC entitlement key `com.apple.developer.private-cloud-compute` only after Apple assigns it to the developer account.
+- Add capabilities through Xcode's `Signing & Capabilities` UI where possible, and keep provisioning profiles aligned with the approved app identifier.
 - Commit only the shared project and entitlement-file changes that are needed for AFM Studio.
 - Do not commit provisioning profiles, certificates, personal team identifiers, or Xcode user state.
 - Mention in the PR whether `PrivateCloudComputeLanguageModel.availability` and `quotaUsage` were tested on a supported OS 27 Mac or device.
-- If Apple renames the beta capability or introduces a separate Private Cloud Compute capability, update `README.md`, this guide, and the Xcode project together.
+- If Apple renames the beta PCC capability or changes the request flow, update `README.md`, this guide, and the Xcode project together.
 
 ## Model Artifacts
 

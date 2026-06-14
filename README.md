@@ -43,23 +43,32 @@ Large model artifacts are not committed to this repository. Local exports belong
 
 - Apple OS 27 SDKs for building the app.
 - SwiftUI, SwiftData, FoundationModels, and the Apple `coreai-models` Swift package dependency.
-- A paid Apple Developer Program or Apple Developer Enterprise Program team for entitlement-backed Foundation Models features.
+- An Apple Developer Program team for entitlement-backed Foundation Models features. Private Cloud Compute access has additional Apple eligibility requirements.
 - Optional for local model export: `uv`, expected by `scripts/export-coreai-models.sh`.
 
 ## Private Cloud Compute Entitlement
 
-Private Cloud Compute and adapter-backed Foundation Models features require a signed app identifier with the Apple-approved Foundation Models capability before they can be used outside the basic local development path. In the Xcode 27 beta developer portal metadata, the requestable capability is named `Foundation Model Adapter` and it adds the boolean entitlement `com.apple.developer.foundation-model-adapter`.
+Private Cloud Compute is separate from Foundation Models adapter/provider work. AFM Studio's PCC path uses Apple's built-in `PrivateCloudComputeLanguageModel` and the managed entitlement `com.apple.developer.private-cloud-compute`.
+
+Apple documents PCC setup in [Adding server-side intelligence with Private Cloud Compute](https://developer.apple.com/documentation/foundationmodels/adding-server-side-intelligence-with-private-cloud-compute) and documents the entitlement at [com.apple.developer.private-cloud-compute](https://developer.apple.com/documentation/bundleresources/entitlements/com.apple.developer.private-cloud-compute). Request access from Apple's [Private Cloud Compute](https://developer.apple.com/private-cloud-compute/) page using the [Get the entitlement](https://developer.apple.com/contact/request/private-cloud-compute/) flow.
+
+As of the OS 27 beta documentation, Apple lists these access requirements:
+
+- Enrollment in the App Store Small Business Program.
+- Fewer than 2 million first-time App Store downloads across your apps.
+- The Private Cloud Compute entitlement assigned to your Apple Developer account.
 
 To enable it for your own builds:
 
 1. Sign in to the Apple Developer account that owns your app identifier.
-2. Request the Foundation Models framework adapter entitlement from Apple: [Foundation Models framework adapter entitlement request](https://developer.apple.com/contact/request/foundation-models-framework-adapter-entitlement).
-3. After approval, open `AFM Studio.xcodeproj` in Xcode 27 beta.
-4. Select the `AFM Studio` app target, then open `Signing & Capabilities`.
-5. Choose your development team and a bundle identifier that has the approved capability.
-6. Add the `Foundation Model Adapter` capability. If Xcode exposes a more specific Foundation Models or Private Cloud Compute capability in a later beta, use the capability name Xcode shows for that SDK.
-7. Let Xcode create or update the app entitlements file and provisioning profile. The entitlement file should contain the key Xcode adds, currently `com.apple.developer.foundation-model-adapter`.
-8. Build and run on a supported OS 27 Mac or device, then refresh the model registry in AFM Studio. The Private Cloud Compute row should report availability and quota through `PrivateCloudComputeLanguageModel.availability` and `quotaUsage`.
+2. Confirm the team meets Apple's PCC eligibility requirements on the [Private Cloud Compute](https://developer.apple.com/private-cloud-compute/) page.
+3. Request the Private Cloud Compute entitlement with Apple's [Get the entitlement](https://developer.apple.com/contact/request/private-cloud-compute/) flow.
+4. After approval, open `AFM Studio.xcodeproj` in Xcode 27 beta.
+5. Select the `AFM Studio` app target, then open `Signing & Capabilities`.
+6. Choose your development team and a bundle identifier that has the approved Private Cloud Compute entitlement.
+7. Let Xcode create or update the app entitlements file and provisioning profile. The entitlement file should contain Apple's PCC key, `com.apple.developer.private-cloud-compute`, set to `true`.
+8. Do not request or add adapter/provider entitlements just to use PCC. Those are for custom Foundation Models provider work, not `PrivateCloudComputeLanguageModel`.
+9. Build and run on a supported OS 27 Mac or device, then refresh the model registry in AFM Studio. The Private Cloud Compute row should report availability and quota through `PrivateCloudComputeLanguageModel.availability` and `quotaUsage`.
 
 Do not commit personal provisioning profiles, signing certificates, or Xcode user state. Commit only project and entitlement-file changes that are required for the shared open-source target.
 
