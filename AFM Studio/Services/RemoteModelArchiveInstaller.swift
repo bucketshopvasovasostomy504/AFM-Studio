@@ -64,6 +64,13 @@ enum RemoteModelArchiveInstaller {
             return extractedURL
         }
 
+        let nestedVariantDirectory = extractedURL
+            .appendingPathComponent(try safePathComponent(model.id), isDirectory: true)
+            .appendingPathComponent(try safePathComponent(model.variant), isDirectory: true)
+        if containsModelAsset(in: nestedVariantDirectory, model: model, fileManager: fileManager) {
+            return nestedVariantDirectory
+        }
+
         let candidates = try visibleContents(of: extractedURL, fileManager: fileManager)
         for candidate in candidates {
             var isDirectory: ObjCBool = false

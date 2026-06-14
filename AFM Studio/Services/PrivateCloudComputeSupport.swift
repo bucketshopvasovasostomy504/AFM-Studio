@@ -19,6 +19,18 @@ enum PrivateCloudComputeSupport {
         return descriptor.availability == .available ? nil : entitlementGuidance
     }
 
+    static func statusLine(
+        availability: ModelAvailabilityState,
+        availabilityText: String,
+        quotaText: () -> String
+    ) -> String {
+        guard availability == .available else {
+            return availabilityText
+        }
+
+        return quotaText()
+    }
+
     static func runtimeFailureMessage(for descriptor: ModelDescriptor, error: any Error) -> String {
         guard descriptor.lane == .privateCloud else {
             return error.localizedDescription

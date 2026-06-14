@@ -71,7 +71,12 @@ final class ModelRegistry {
     private func privateCloudDescriptor() -> ModelDescriptor {
         let model = PrivateCloudComputeLanguageModel()
         let availability = FoundationModelStatusFormatting.privateCloudAvailabilityText(model.availability)
-        let quota = FoundationModelStatusFormatting.privateCloudQuotaText(model.quotaUsage)
+        let statusLine = PrivateCloudComputeSupport.statusLine(
+            availability: availability.0,
+            availabilityText: availability.1
+        ) {
+            FoundationModelStatusFormatting.privateCloudQuotaText(model.quotaUsage)
+        }
         return ModelDescriptor(
             id: BuiltInModelID.privateCloud,
             displayName: "Private Cloud Compute",
@@ -85,7 +90,7 @@ final class ModelRegistry {
                 vision: true
             ),
             availability: availability.0,
-            statusLine: availability.0 == .available ? quota : availability.1,
+            statusLine: statusLine,
             isBuiltIn: true
         )
     }

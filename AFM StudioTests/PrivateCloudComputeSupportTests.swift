@@ -6,6 +6,7 @@ struct PrivateCloudComputeSupportTests {
         try hidesEntitlementInstructionsWhenPrivateCloudIsAvailable()
         try showsEntitlementInstructionsWhenPrivateCloudIsUnavailable()
         try appendsEntitlementInstructionsToRuntimeFailures()
+        try statusLineDoesNotReadQuotaWhenPrivateCloudIsUnavailable()
         print("PrivateCloudComputeSupportTests passed")
     }
 
@@ -39,6 +40,20 @@ struct PrivateCloudComputeSupportTests {
         try expect(message.contains("request denied"), "runtime failure should preserve the original error")
         try expect(message.contains("Private Cloud Compute failed"), "runtime failure should name Private Cloud Compute")
         try expect(message.contains("Signing & Capabilities"), "runtime failure should include entitlement guidance")
+    }
+
+    private static func statusLineDoesNotReadQuotaWhenPrivateCloudIsUnavailable() throws {
+        var didReadQuota = false
+        let statusLine = PrivateCloudComputeSupport.statusLine(
+            availability: .unavailable,
+            availabilityText: "Unavailable: entitlement not configured"
+        ) {
+            didReadQuota = true
+            return "Quota available"
+        }
+
+        try expect(statusLine == "Unavailable: entitlement not configured", "unavailable status should use availability text")
+        try expect(didReadQuota == false, "unavailable Private Cloud status should not read quota")
     }
 
     private static func privateCloudDescriptor(availability: ModelAvailabilityState) -> ModelDescriptor {
